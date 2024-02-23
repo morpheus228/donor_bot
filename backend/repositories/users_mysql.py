@@ -11,16 +11,17 @@ class UsersMYSQL:
         
     def create(self, user: CreateUser) -> None:
         with Session(self.mysql) as session:
-            user = MysqlUser(id = user.id,
+            user = MysqlUser(
+                             id = user.id,
                              first_name = user.first_name,
                              last_name = user.last_name,
                              username = user.username)
             session.add(user)
             session.commit()
 
-    def get_by_id(self, user_id: int) -> MysqlUser|None:
+    def get_by_id(self, tg_ig: int) -> MysqlUser|None:
         with Session(self.mysql) as session:
-            return session.query(MysqlUser).get(user_id)
+            return session.query(MysqlUser).get(tg_ig)
         
     def get_all(self) -> list[CreateUser|None]:
         with Session(self.mysql) as session:
