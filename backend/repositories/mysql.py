@@ -2,9 +2,8 @@ from sqlalchemy import create_engine, BigInteger, String, Column, DateTime, Fore
 from sqlalchemy.orm import declarative_base
 from datetime import datetime
 
-from bot.config import Config
+from config import Config
 from schemas.user import UserCondition
-from schemas.user_request import UserRequestStatus
 
 
 def get_mysql():
@@ -27,46 +26,3 @@ class User(Base):
     condition = Column(Enum(UserCondition), default=UserCondition.NEW)
     created_at = Column(DateTime(), default=datetime.utcnow)
     updated_at = Column(DateTime(), default=datetime.utcnow, onupdate=datetime.utcnow)
-
-
-class UserProfile(Base):
-    __tablename__ = 'UserProfiles'
-
-    id = Column(BigInteger, primary_key=True)
-    user_id = Column(BigInteger, ForeignKey('Users.id', ondelete='CASCADE'))
-    # поля профиля
-    created_at = Column(DateTime(), default=datetime.utcnow)
-    updated_at = Column(DateTime(), default=datetime.utcnow, onupdate=datetime.utcnow)
-    is_deleted = Column(Boolean, default=False)
-
-
-class UserRequest(Base):
-    __tablename__ = 'UserRequests'
-
-    id = Column(BigInteger, primary_key=True)
-    user_id = Column(BigInteger, ForeignKey('Users.id', ondelete='CASCADE'))
-    text = Column(String(1024))
-    created_at = Column(DateTime(), default=datetime.utcnow)
-    updated_at = Column(DateTime(), default=datetime.utcnow, onupdate=datetime.utcnow)
-    status = Column(Enum(UserRequestStatus), default=UserRequestStatus.ACTIVE)
-    matches_count = Column(Integer, default=0)
-
-
-class Recommendation(Base):
-    __tablename__ = 'Recommendations'
-
-    id = Column(BigInteger, primary_key=True)
-    request_id = Column(BigInteger, ForeignKey('UserRequests.id', ondelete='CASCADE'))
-    profile_id = Column(BigInteger, ForeignKey('UserProfiles.id', ondelete='CASCADE'))
-    score = Column(Float)
-    is_selected = Column(Boolean, default=False)
-    is_viewed = Column(Boolean, default=False)
-    created_at = Column(DateTime(), default=datetime.utcnow)
-    updated_at = Column(DateTime(), default=datetime.utcnow, onupdate=datetime.utcnow)
-
-
-class ProfileEmbedding(Base):
-    __tablename__ = 'ProfileEmbeddings'
-
-    profile_id = Column(BigInteger, ForeignKey('UserProfiles.id', ondelete='CASCADE'), primary_key=True)
-    embedding = Column(Float)
