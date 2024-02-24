@@ -20,8 +20,6 @@ class Users:
         return User(
             login = mysql_user["login"],
             password =mysql_user["password"] ,
-            # user_id = mysql_user["id"],
-            # email = mysql_user["email"],
             username =  mysql_user["username"] if mysql_user.get("username") else None,
             id = mysql_user["tg_id"]
         )
@@ -30,6 +28,5 @@ class Users:
         mysql_user = self.repository.users.get_by_id(tg_id)
         if mysql_user is None:
             self.repository.users.create(tg_id, login, password)
-
 
         return 200

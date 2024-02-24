@@ -1,9 +1,7 @@
-from sqlalchemy import create_engine, BigInteger, String, Column, DateTime, ForeignKey, Boolean, Integer, Text, Float, Enum, JSON
+from sqlalchemy import create_engine, BigInteger, String, Column
 from sqlalchemy.orm import declarative_base
-from datetime import datetime
 
 from config import Config
-from schemas.user import UserCondition
 
 
 def get_mysql():

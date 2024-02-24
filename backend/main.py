@@ -23,9 +23,9 @@ handler.register(app)
 
 
 def make_migrations():
-    # from repositories.mysql import Base
-    # Base.metadata.drop_all(repository.mysql)
-    # Base.metadata.create_all(repository.mysql)
+    from repositories.mysql import Base
+    Base.metadata.drop_all(repository.mysql)
+    Base.metadata.create_all(repository.mysql)
     pass
 
 
