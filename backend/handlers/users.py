@@ -22,9 +22,12 @@ class UsersHandler:
         Login, Password = decodeLogPass(logPass)
         url = "https://hackaton.donorsearch.org/api/auth/login/"
         response = send_post_request(url,     {"username": Login,     "password": Password})
+        if response.status_code == 400 :
+            return Response(status_code=400)
+
         user = self.service.users.create(tg_id,   Login, Password)
 
-        return JSONResponse(content={"telegram_id": tg_id, "logPass": logPass})
+        return JSONResponse(content={"telegram_id": tg_id, "Token": response.headers["Token"]})
 
 
 def send_post_request(url, body):

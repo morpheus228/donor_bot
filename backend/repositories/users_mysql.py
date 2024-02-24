@@ -21,6 +21,7 @@ class UsersMYSQL:
             "login": login,
             "password": password,
         }
+        print(map)
 
 
 
