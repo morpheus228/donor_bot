@@ -17,7 +17,6 @@ Base = declarative_base()
 
 class User(Base):
     __tablename__ = 'Users'
-
     id = Column(BigInteger, primary_key=True)
     login = Column(String(100))
     password = Column(String(100))

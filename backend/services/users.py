@@ -26,7 +26,10 @@ class Users:
             id = mysql_user["tg_id"]
         )
 
-    def create(self, tg_id: int, login :str, password : str) -> int:
+    def create(self, tg_id: int, login: str, password: str) -> int:
         mysql_user = self.repository.users.get_by_id(tg_id)
         if mysql_user is None:
             self.repository.users.create(tg_id, login, password)
+
+
+        return 200
