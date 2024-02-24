@@ -31,4 +31,4 @@ def make_migrations():
 
 if __name__ == "__main__":
     make_migrations()
-    uvicorn.run(app="main:app", reload=True, port=80)
+    uvicorn.run(app="main:app", reload=True, port=8005)

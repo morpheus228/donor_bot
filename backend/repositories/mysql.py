@@ -17,12 +17,11 @@ Base = declarative_base()
 
 class User(Base):
     __tablename__ = 'Users'
-
     id = Column(BigInteger, primary_key=True)
-    first_name = Column(String(100))
-    last_name = Column(String(100))
+    login = Column(String(100))
+    password = Column(String(100))
     username = Column(String(100))
-    is_visible = Column(Boolean, default=True)
-    condition = Column(Enum(UserCondition), default=UserCondition.NEW)
-    created_at = Column(DateTime(), default=datetime.utcnow)
-    updated_at = Column(DateTime(), default=datetime.utcnow, onupdate=datetime.utcnow)
+    email = Column(String(100))
+
+
+

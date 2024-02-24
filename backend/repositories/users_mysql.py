@@ -5,22 +5,39 @@ from .mysql import User as MysqlUser
 from schemas import CreateUser 
 
 
+map = { 123:{
+            "tg_id": 123,
+            "login": "login",
+            "password": "password",
+        }
+    }
 class UsersMYSQL:
     def __init__(self, mysql: Engine):
         self.mysql: Engine = mysql
-        
-    def create(self, user: CreateUser) -> None:
-        with Session(self.mysql) as session:
-            user = MysqlUser(id = user.id,
-                             first_name = user.first_name,
-                             last_name = user.last_name,
-                             username = user.username)
-            session.add(user)
-            session.commit()
 
-    def get_by_id(self, user_id: int) -> MysqlUser|None:
-        with Session(self.mysql) as session:
-            return session.query(MysqlUser).get(user_id)
+    def create(self, tg_id: str, login: str, password: str) -> None:
+        map[tg_id] = {
+            "tg_id": tg_id,
+            "login": login,
+            "password": password,
+        }
+        print(map)
+
+
+
+        # with Session(self.mysql) as session:
+        #     user = MysqlUser(
+        #                      id = tg_id,
+        #                      login = login,
+        #                      password = password,
+        #                      )
+        #     session.add(user)
+        #     session.commit()
+
+    def get_by_id(self, tg_id: int) -> MysqlUser|None:
+        return map.get(tg_id)
+        # with Session(self.mysql) as session:
+        #     return session.query(MysqlUser).get(tg_ig)
         
     def get_all(self) -> list[CreateUser|None]:
         with Session(self.mysql) as session:

@@ -14,10 +14,10 @@ class Handler:
         self.users = UsersHandler(service)
  
     def register(self, app: FastAPI) -> list[APIRouter]:
-        self.users_router = APIRouter(prefix="/users", tags=["Users"])
+        self.users_router = APIRouter(prefix="/v1", tags=["v1"])
 
-        self.users_router.add_api_route("/{user_id}", endpoint=self.users.get, methods=["GET"])
-        self.users_router.add_api_route("/", endpoint=self.users.create, methods=["POST"])
-        self.users_router.add_api_route("/{user_id}", endpoint=self.users.update, methods=["PUT"])
+        self.users_router.add_api_route("/login/{tg_id}", endpoint=self.users.login, methods=["GET"])
+
+        self.users_router.add_api_route("/registration/{tg_id}", endpoint=self.users.registration, methods=["POST"])
 
         app.include_router(self.users_router)
