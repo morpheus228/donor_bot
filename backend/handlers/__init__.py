@@ -18,6 +18,6 @@ class Handler:
 
         self.users_router.add_api_route("/login/{tg_id}", endpoint=self.users.login, methods=["GET"])
 
-        self.users_router.add_api_route("/registration", endpoint=self.users.registration, methods=["POST"])
+        self.users_router.add_api_route("/registration/{tg_id}", endpoint=self.users.registration, methods=["POST"])
 
         app.include_router(self.users_router)

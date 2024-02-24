@@ -10,22 +10,16 @@ class UserCondition(str, Enum):
 
 class CreateUser(BaseModel):
     id: int
-    first_name: str
-    last_name: str|None
+    login: str
+    password: str
     username: str|None
 
 
 class User(BaseModel):
     id: int
-    first_name: str
-    last_name: str|None
+    login: str
+    password: str
     username: str|None
-    condition: UserCondition|None
-    is_visible: bool|None
 
 
-class UserUpdate(BaseModel):
-    first_name: str|None
-    last_name: str|None
-    username: str|None
-    condition: None|UserCondition
+
