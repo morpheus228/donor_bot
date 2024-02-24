@@ -1,12 +1,6 @@
-from sqlalchemy import Engine
-
-from .mysql import get_mysql
-
-from .users_mysql import UsersMYSQL
+from .gpt import GPT
 
 
 class Repository:
 	def __init__(self):
-		self.mysql: Engine = get_mysql()
-
-		self.users: UsersMYSQL = UsersMYSQL(self.mysql)
+		self.gpt: GPT = GPT()

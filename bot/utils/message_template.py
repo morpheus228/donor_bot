@@ -3,6 +3,7 @@ import jinja2
 
 from aiogram.types import InlineKeyboardButton, KeyboardButton, ReplyKeyboardMarkup, InlineKeyboardMarkup
 from aiogram.utils.keyboard import InlineKeyboardBuilder, ReplyKeyboardBuilder
+from aiogram.types.web_app_info import WebAppInfo
 
 
 class MessageTemplateError(Exception):
@@ -74,6 +75,13 @@ class MessageJSONTemplate:
             kwargs = {key: value for key, value in keyboard.items() if key not in ['type', 'keys']}
             keys = keyboard['keys']
 
+            for i in range(len(keys)):
+                for j in range(len(keys[i])):
+                    web_app = keys[i][j].get('web_app')
+                    if web_app is not None:
+                        keys[i][j]['web_app'] = WebAppInfo(url=web_app)
+
+
             match keyboard['type']:
                 case 'inline':
                     return cls.load_inline_keyboard(keys, kwargs)
@@ -85,7 +93,7 @@ class MessageJSONTemplate:
     @staticmethod
     def load_inline_keyboard(keys, kwargs) -> InlineKeyboardMarkup:
         return InlineKeyboardBuilder(list(map(lambda row: list(map(lambda key: InlineKeyboardButton(**key), row)), keys))).as_markup(**kwargs)
-    
+
     @staticmethod
     def load_reply_keyboard(keys, kwargs) -> ReplyKeyboardMarkup:
         return ReplyKeyboardBuilder(list(map(lambda row: list(map(lambda key: KeyboardButton(**key), row)), keys))).as_markup(**kwargs) 

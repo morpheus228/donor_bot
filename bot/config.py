@@ -15,7 +15,7 @@ class Config:
 
     @classmethod
     def set(cls, path: str = '.env'):
-        # load_dotenv(path)
+        load_dotenv(path)
 
         cls.bot = BotConfig(
             token = os.getenv('BOT_TOKEN')
